@@ -1,0 +1,74 @@
+﻿@using Saas.Models
+@model Datalink
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string PageFor = "Datalink";
+    string ForArea = "Admin";
+    string ForController = "Datalink";
+    bool CreateMode = (Model == null || Model.Id == null);
+    var title = (CreateMode ? "Create" : "Edit") + ' ' + PageFor;
+}
+@if (!CreateMode) {<input asp-for="Id" type="hidden" />}
+<form method="post" asp-action="Upsert">
+    <div class="row px-2 mx-2">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-primary">@title</h2>
+            </div>
+            @if (!CreateMode) {
+                <div class="col-6 text-end">
+                    <button type="button" data-id="@Model.Id" class="btn btn-danger js-delete">Delete @PageFor</button>
+                </div>
+            }
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Id):
+            @if (!CreateMode) { @Html.DisplayFor(m => m.Id, new { @class = "form-control" }) } else { <i>{New}</i><input asp-for="Id" hidden value="new" /> }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Provider)
+            @Html.TextBoxFor(m => m.Provider, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConnectionString)
+            @Html.TextBoxFor(m => m.ConnectionString, new { @class = "form-control" })
+        </div>
+        <div class="checkbox">
+            <label>@Html.CheckBoxFor(m => m.Active) Active Datalink</label>
+        </div>
+        <div class="form-group">
+            @if (!CreateMode){
+                <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+            } else {
+                <button type="submit" class="btn btn-primary" style="width:150px" onclick="return ValidateInput()">Create</button>
+            }
+            <a asp-area="@ForArea" asp-controller="@ForController" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-delete").on("click", function() {
+                if (confirm("Are you sure you want to delete this @PageFor?")) {
+                    $.ajax({
+                        url: "/@ForArea/@ForController/Delete/" + $(this).attr("data-id"),
+                        method: "POST",
+                        success: function() {
+                            alert("Record deleted");
+                            window.location.href = "/@ForArea/@ForController/Index";
+                        },
+                        error: function() {
+                            alert("Error: " + "/@ForArea/@ForController/" + $(this).attr("data-id"));
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

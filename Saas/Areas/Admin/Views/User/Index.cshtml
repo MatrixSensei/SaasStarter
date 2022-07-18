@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@*@model IEnumerable<ApplicationUser>*@
+@model IEnumerable<IdentityUser>
+@{
+    string PageFor = "User";
+    string ForArea = "Identity";
+    string ForController = "User";
+}
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">@PageFor List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-info">Create New @PageFor</a>
+        </div>
+    </div>
+    <p>Use this page to detail your site's @PageFor records.</p>
+    @if (!Model.Any())
+    {
+        <p>No @PageFor Records Exists...</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (ApplicationUser obj in Model)*@
+                @foreach (IdentityUser obj in Model)
+                {
+                    <tr>
+                        <td nowrap>@obj.Id</td>
+                        <td>@obj.UserName</td>
+                        <td>@obj.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div> 

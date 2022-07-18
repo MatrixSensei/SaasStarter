@@ -1,0 +1,68 @@
+﻿@model Saas.Models.ViewModels.TenantUserViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string PageFor = "Tenant/User";
+    string ForArea = "Admin";
+    string ForController = "TenantUser";
+    bool CreateMode = (Model.TenantUser.Id == null || Model.TenantUser.Id == 0);
+    var title = (CreateMode ? "Create" : "Edit") + ' ' + PageFor;
+}
+@if (!CreateMode) {<input type="hidden" asp-for="TenantUser.Id" />}
+<form method="post" asp-action="Upsert">
+    <div class="row px-2 mx-2">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-primary">@title</h2>
+            </div>
+            @if (!CreateMode) {
+                <div class="col-6 text-end">
+                    <button type="button" data-id="@Model.TenantUser.Id" class="btn btn-danger js-delete">Delete @PageFor</button>
+                </div>
+            }
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.TenantUser.Id):
+            @if (!CreateMode) { @Html.DisplayFor(m => m.TenantUser.Id, new { @class = "form-control" }) } else { <i>{New}</i> }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.TenantUser.TenantId)
+            @Html.DropDownListFor(m => m.TenantUser.TenantId, Model.TenantList,
+                        "-- Select a Tenant --", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.TenantUser.UserId)
+            @Html.DropDownListFor(m => m.TenantUser.UserId, Model.UserList,
+                        "-- Select a Data Link --", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @if (!CreateMode){
+                <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+            } else {
+                <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+            }
+            <a asp-area="@ForArea" asp-controller="@ForController" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-delete").on("click", function() {
+                if (confirm("Are you sure you want to delete this @PageFor?")) {
+                    $.ajax({
+                        url: "/@ForArea/@ForController/Delete/" + $(this).attr("data-id"),
+                        method: "POST",
+                        success: function() {
+                            alert("Record deleted");
+                            window.location.href = "/@ForArea/@ForController/Index";
+                        },
+                        error: function() {
+                            alert("Error: " + "/@ForArea/@ForController/" + $(this).attr("data-id"));
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

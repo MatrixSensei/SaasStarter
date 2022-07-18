@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Saas.Models.TenantDatalink>
+@{
+    ViewBag.Title = "Tenant/Datalink Link";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string PageFor = "Tenant/Datalink Link";
+    string ForArea = "Admin";
+    string ForController = "TenantDatalink";
+}
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">@PageFor List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-action="Upsert" class="btn btn-primary">Create New @PageFor</a>
+        </div>
+    </div>
+    <p>Use this page to detail your site's @PageFor records.</p>
+    @if (!Model.Any())
+    {
+        <p>No @PageFor Records Exists...</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Tenant</th>
+                    <th>Datalink</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        @*<td>@Html.ActionLink(obj.Id, "Upsert", ForController, new { area = ForArea, Id = obj.Id}, null)</td>
+                        *@<td><a href="/@ForArea/@ForController/Upsert/@obj.Id">@obj.Id</a></td>
+                        <td><a href="/@ForArea/Tenant/Upsert/@obj.TenantId">@obj.Tenant.Name</a></td>
+                        <td><a href="/@ForArea/Datalink/Upsert/@obj.DatalinkId">@obj.Datalink.Name</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

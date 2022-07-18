@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Datalink>
+@{
+    string PageFor = "Data Link";
+    string ForArea = "Admin";
+    string ForController = "Datalink";
+}
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">@PageFor List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-action="Upsert" class="btn btn-primary">Create New @PageFor</a>
+        </div>
+    </div>
+    <p>Use this page to detail your site's @PageFor records.</p>
+    @if (!Model.Any())
+    {
+        <p>No @PageFor Records Exists...</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nic&nbsp;Name</th>
+                    <th>Provider</th>
+                    <th>Connection&nbsp;String</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td nowrap>@Html.ActionLink(obj.Id, "Upsert", ForController, new { area = ForArea, Id = obj.Id}, null)</td>
+                        <td>@obj.Name@if (obj.Active != true){<br /><i class="text-danger">{Inactive}</i>}</td>
+                        <td>@obj.Provider</td>
+                        <td>@if(obj.ConnectionString == null || obj.ConnectionString == "") {
+                            <p>Will default to '<b>defaultSharedDatalink</b>' data link.</p>
+                        } else {
+                            @obj.ConnectionString
+                        }</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

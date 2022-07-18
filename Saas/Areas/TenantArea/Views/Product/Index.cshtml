@@ -1,0 +1,49 @@
+﻿@using TenantResources.Models
+@model IEnumerable<Product>
+@{
+    string PageFor = "Products";
+    string ForArea = "Tenant";
+    string ForController = "Product";
+}
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">@PageFor List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-action="Upsert" class="btn btn-primary">Create New @PageFor</a>
+        </div>
+    </div>
+    <p>Use this page to detail your site's @PageFor records.</p>
+    @if (!Model.Any())
+    {
+        <p>No @PageFor Records Exists...</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Product&nbsp;Name</th>
+                    <th>Description</th>
+                    <th>Rate</th>
+                    <th>TenantId</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        @*<td>@Html.ActionLink(obj.Id, "Upsert", ForController, new { area = ForArea, Id = obj.Id}, null)</td>
+                        *@<td><a href="/@ForArea/@ForController/Upsert/@obj.Id">@obj.Id</a></td>
+                        <td>@obj.Name</td>
+                        <td>@obj.Description</td>
+                        <td>@obj.Rate</td>
+                        <td nowrap>@obj.TenantId</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
