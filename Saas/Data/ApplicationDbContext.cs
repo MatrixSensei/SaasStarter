@@ -103,15 +103,15 @@ namespace Saas.Data
             //builder.Entity<ApplicationUser>().HasData(new
             builder.Entity<IdentityUser>().HasData(new
             {
-                Id = "b44ce1a0-06a9-4123-ad57-7cd458485ddc",
+                Id = "9a3a5b47-fd9a-4c57-9131-d0be482efc57",
                 Discriminator = "IdentityUser",
                 UserName = "admin@saas.com",
                 NormalizedUserName = "ADMIN@SAAS.COM",
                 Email = "admin@saas.com",
                 NormalizedEmail = "ADMIN@SAAS.COM",
-                PasswordHash = "AQAAAAEAACcQAAAAECdHbFmJUrpwqvXXXPouK/taz+boBdhWheMz7e5nF5urd46DicUx4rWZ5Nuglwo+jA==",
-                SecurityStamp = "UWFNILQ466TSZJV2LLK3K4TXLIFX7ZNS",
-                ConcurrencyStamp = "a550385f-27f5-47d6-9715-97c754ab240e",
+                PasswordHash = "AQAAAAEAACcQAAAAEKCwX5auoOUJ5ZtSFNdyuthSCXSNRu8YfIFuJqIsgKAfgwtdcNdhtzTc8gyHPu+k/g==",
+                SecurityStamp = "FIYZB33JXW3JD3A47A5V5UEEU5AMULG5",
+                ConcurrencyStamp = "d2975948-23a9-4d96-80eb-31cb822b53fb",
                 AccessFailedCount = 0,
                 EmailConfirmed = false,
                 LockoutEnabled = false,
@@ -120,10 +120,10 @@ namespace Saas.Data
             });
 
             builder.Entity<TenantUser>().HasData(
-                new { Id = 1, UserId = "b44ce1a0-06a9-4123-ad57-7cd458485ddc", TenantId = "e895cc49-3266-44a0-0f8e-08da5ed157b0" },
-                new { Id = 2, UserId = "b44ce1a0-06a9-4123-ad57-7cd458485ddc", TenantId = "e7600b12-0c8a-41f1-0f8f-08da5ed157b0" },
-                new { Id = 3, UserId = "b44ce1a0-06a9-4123-ad57-7cd458485ddc", TenantId = "3eeb9e55-2dea-4e60-0f90-08da5ed157b0" },
-                new { Id = 4, UserId = "b44ce1a0-06a9-4123-ad57-7cd458485ddc", TenantId = "3694cda0-b999-4920-0f91-08da5ed157b0" }
+                new { Id = 1, UserId = "9a3a5b47-fd9a-4c57-9131-d0be482efc57", TenantId = "e895cc49-3266-44a0-0f8e-08da5ed157b0" },
+                new { Id = 2, UserId = "9a3a5b47-fd9a-4c57-9131-d0be482efc57", TenantId = "e7600b12-0c8a-41f1-0f8f-08da5ed157b0" },
+                new { Id = 3, UserId = "9a3a5b47-fd9a-4c57-9131-d0be482efc57", TenantId = "3eeb9e55-2dea-4e60-0f90-08da5ed157b0" },
+                new { Id = 4, UserId = "9a3a5b47-fd9a-4c57-9131-d0be482efc57", TenantId = "3694cda0-b999-4920-0f91-08da5ed157b0" }
             );
 
         }

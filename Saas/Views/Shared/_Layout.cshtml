@@ -70,6 +70,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Business</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item text-dark" asp-area="TenantArea" asp-controller="Product" asp-action="Index">Product List</a></li>
+                                <li><a class="dropdown-item text-dark" asp-area="TenantArea" asp-controller="Product" asp-action="Upsert">Add Product</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tenant/User Management</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Datalink" asp-action="Index">Data Links</a></li>

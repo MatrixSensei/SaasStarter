@@ -1,9 +1,11 @@
-﻿@using TenantResources.Models
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using TenantResources.Models
 @model IEnumerable<Product>
 @{
     string PageFor = "Products";
     string ForArea = "Tenant";
     string ForController = "Product";
+    string ForTenant = HttpContextAccessor.HttpContext.Session.GetObject<string>("TenantName");
 }
 <div>
     <div class="row">
@@ -12,6 +14,7 @@
         </div>
         <div class="col-6 text-end">
             <a asp-action="Upsert" class="btn btn-primary">Create New @PageFor</a>
+            <p>For: @ForTenant</p>
         </div>
     </div>
     <p>Use this page to detail your site's @PageFor records.</p>

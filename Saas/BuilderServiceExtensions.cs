@@ -75,6 +75,8 @@ namespace Saas
                     try
                     {
                         dbTenantContext.Database.Migrate();  // This will not overwrite existing tables
+
+                        // For testing purposes only
                         if (item.Name == "alphaDatalink")
                         {
                             dbTenantContext.Database.ExecuteSqlRaw(

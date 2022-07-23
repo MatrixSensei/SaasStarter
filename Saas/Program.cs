@@ -8,6 +8,7 @@ using TenantResources.Data.Repository;
 using TenantResources.Data.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var addSwagger = true;
 //var addSwagger = false;
 if (addSwagger == true)
@@ -17,12 +18,33 @@ if (addSwagger == true)
     // Add services to the container.
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    //builder.Services.AddSwaggerGen();
     builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Saas.Api", Version = "v1" });
     });
 }
+
+// For managing session variables
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    // This lambda determines whether user consent for non-essential cookies is need for
+    options.CheckConsentNeeded = context => true;
+});
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+// This is required to restict access to web pages to those unauthorised.
+// The annotation required to allow authorised users is [Authorize]
+//  or be more specifice with [Authorize(Roles = "Admin")]
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
@@ -38,19 +60,10 @@ builder.Services.AddAndMigrateDatalinkContexts(builder.Configuration);  // in Se
 
 builder.Services.AddControllersWithViews();
 
+//===========================================================================================================
 var app = builder.Build();
+//===========================================================================================================
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() && addSwagger == true)
 {
@@ -71,6 +84,11 @@ else
         app.UseHsts();
     }
 }
+
+// For managing session variables
+app.UseSession();
+// I'm not sure if this Cookie stuff is required for .Net6, but I'm adding it anyway
+app.UseCookiePolicy();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -98,4 +116,6 @@ app.UseEndpoints(endpoints =>
 });
 
 
+//===========================================================================================================
 app.Run();
+//===========================================================================================================
