@@ -49,18 +49,14 @@ namespace TenantResources.Data
         // of the current tenant, as simple as that.
         private void SetTenant(string tenantRequest)
         {
-            try  // Test to make sure we are using a guid
+            _currentTenant = _db.SaasTenants.Where(t => t.Name == tenantRequest).FirstOrDefault();
+            if (_currentTenant == null || _currentTenant.Id == null)
             {
                 _currentTenant = _db.SaasTenants.Where(t => t.Id == tenantRequest).FirstOrDefault();
-            }
-            catch
-            { // not using guid
-                _currentTenant = _db.SaasTenants.Where(t => t.Name == tenantRequest).FirstOrDefault();
             }
             if (_currentTenant == null || _currentTenant.Id == null)
             {
                 throw new Exception("Invalid Tenant!");
-                _currentTenant = null;
             }
             else
             {
@@ -78,7 +74,6 @@ namespace TenantResources.Data
 
         private void SetDefaultConnectionStringToCurrentTenant()
         {
-            //_currentDatalink.ConnectionString = _DatalinkSettings.SharedDatalink.ConnectionString;
             _currentDatalink = _db.SaasDatalinks.Where(a => a.Name == "defaultSharedDatalink").FirstOrDefault();
             if (_currentDatalink == null) throw new Exception("Shared Data Link Missing!!!");
         }
