@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Saas;
 
 namespace TenantResources.Data
 {
@@ -37,7 +38,11 @@ namespace TenantResources.Data
                 }
                 else
                 {
-//                    throw new Exception("Invalid Tenant!");
+                    tenantRequest = _httpContext.Session.GetObject<string>("TenantIdOrName");
+                    if (tenantRequest != "") {
+                        SetTenant(tenantRequest);
+                    }
+                    //throw new Exception("Invalid Tenant!");
                 }
             }
         }
@@ -56,7 +61,7 @@ namespace TenantResources.Data
             }
             if (_currentTenant == null || _currentTenant.Id == null)
             {
-                throw new Exception("Invalid Tenant!");
+                //throw new Exception("Invalid Tenant!");
             }
             else
             {

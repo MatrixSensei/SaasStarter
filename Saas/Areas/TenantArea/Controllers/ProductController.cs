@@ -22,7 +22,7 @@ namespace Saas.Areas.TenantArea.Controllers
         }
 
         // GET: Datalink/Upsert/{id}
-        public IActionResult Upsert(string? id)
+        public IActionResult Upsert(int? id)
         {
             Product? obj;
 

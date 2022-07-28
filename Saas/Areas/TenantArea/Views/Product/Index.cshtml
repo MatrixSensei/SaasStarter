@@ -3,9 +3,9 @@
 @model IEnumerable<Product>
 @{
     string PageFor = "Products";
-    string ForArea = "Tenant";
+    string ForArea = "TenantArea";
     string ForController = "Product";
-    string ForTenant = HttpContextAccessor.HttpContext.Session.GetObject<string>("TenantName");
+    string ForTenant = HttpContextAccessor.HttpContext.Session.GetObject<string>("TenantIdOrName");
 }
 <div>
     <div class="row">
@@ -17,7 +17,7 @@
             <p>For: @ForTenant</p>
         </div>
     </div>
-    <p>Use this page to detail your site's @PageFor records.</p>
+    <p>Use this page to list your site's @PageFor records.</p>
     @if (!Model.Any())
     {
         <p>No @PageFor Records Exists...</p>
