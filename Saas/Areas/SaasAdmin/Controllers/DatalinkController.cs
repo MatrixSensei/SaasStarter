@@ -2,9 +2,9 @@
 using Saas.Data;
 using Saas.Models;
 
-namespace Saas.Areas.Admin.Controllers
+namespace Saas.Areas.SaasAdmin.Controllers
 {
-    [Area("Admin")]
+    [Area("SaasAdmin")]
     public class DatalinkController : Controller
     {
         private readonly ApplicationDbContext _db;

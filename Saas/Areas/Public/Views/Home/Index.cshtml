@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
     var ForTenant = HttpContextAccessor.HttpContext.Session.GetObject<string>("TenantIdOrName");
     var ForUser = User.Identity?.Name;
-    var ForArea = "Admin";
+    var ForArea = "SaasAdmin";
     var ForController = "TenantUser";
 }
 
@@ -37,7 +37,7 @@
                                 @* We will bypass the:
                                  *  HttpContextAccessor.HttpContext.Session.SetObject<string>("TenantIdOrName",@obj.Tenant.Name)
                                  * until after I get this list working
-                                 *@<td><a href="/Admin/Tenant/Upsert/@obj.TenantId">@obj.Tenant.Name</a></td>
+                                 *@<td><a href="/SaasAdmin/Tenant/Upsert/@obj.TenantId">@obj.Tenant.Name</a></td>
                                 <td>@obj.User.UserName</td>
                             </tr>
                         }

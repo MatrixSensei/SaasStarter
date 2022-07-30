@@ -1,8 +1,10 @@
-﻿@model IEnumerable<Tenant>
+﻿@model IEnumerable<Saas.Models.TenantDatalink>
 @{
-    string PageFor = "Tenant";
-    string ForArea = "Admin";
-    string ForController = "Tenant";
+    ViewBag.Title = "Tenant/Datalink Link";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string PageFor = "Tenant/Datalink Link";
+    string ForArea = "SaasAdmin";
+    string ForController = "TenantDatalink";
 }
 <div>
     <div class="row">
@@ -24,23 +26,18 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Created</th>
-                    <th>Updated</th>
-                    <th>Description</th>
-                    <th>Comment</th>
+                    <th>Tenant</th>
+                    <th>Datalink</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var obj in Model)
                 {
                     <tr>
-                        <td nowrap>@Html.ActionLink(obj.Id, "Upsert", ForController, new { area = ForArea, Id = obj.Id}, null)</td>
-                        <td>@obj.Name</td>
-                        <td>@obj.Created.ToString("ddd d MMM yyyy hh:mmtt")</td>
-                        <td>@obj.Updated.ToString("ddd d MMM yyyy hh:mmtt")</td>
-                        <td>@obj.Description</td>
-                        <td>@obj.Comment</td>
+                        @*<td>@Html.ActionLink(obj.Id, "Upsert", ForController, new { area = ForArea, Id = obj.Id}, null)</td>
+                        *@<td><a href="/@ForArea/@ForController/Upsert/@obj.Id">@obj.Id</a></td>
+                        <td><a href="/@ForArea/Tenant/Upsert/@obj.TenantId">@obj.Tenant.Name</a></td>
+                        <td><a href="/@ForArea/Datalink/Upsert/@obj.DatalinkId">@obj.Datalink.Name</a></td>
                     </tr>
                 }
             </tbody>

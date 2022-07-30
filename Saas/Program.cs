@@ -38,7 +38,7 @@ builder.Services.AddSession(options =>
 });
 // This is required to restict access to web pages to those unauthorised.
 // The annotation required to allow authorised users is [Authorize]
-//  or be more specifice with [Authorize(Roles = "Admin")]
+//  or be more specifice with [Authorize(Roles = "SaasAdmin")]
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = $"/Identity/Account/Login";

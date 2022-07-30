@@ -5,9 +5,9 @@ using Saas.Data;
 using Saas.Models;
 using Saas.Models.ViewModels;
 
-namespace Saas.Areas.Admin.Controllers
+namespace Saas.Areas.SaasAdmin.Controllers
 {
-    [Area("Admin")]
+    [Area("SaasAdmin")]
     public class TenantUserController : Controller
     {
         private readonly ApplicationDbContext _db;

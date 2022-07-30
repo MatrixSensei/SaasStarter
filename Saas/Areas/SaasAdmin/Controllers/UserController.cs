@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Saas.Models;
 
-namespace Saas.Areas.Admin.Controllers
+namespace Saas.Areas.SaasAdmin.Controllers
 {
-    [Area("Admin")]
+    [Area("SaasAdmin")]
     public class UserController : Controller
     {
         //private UserManager<ApplicationUser> _userManager;
